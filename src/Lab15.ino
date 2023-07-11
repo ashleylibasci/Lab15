@@ -12,7 +12,7 @@ void setup()
   display.clearDisplay();
   display.display();
 
-  pinMode(D5, INPUT);
+  pinMode(D5, INPUT_PULLUP);
 
   Watchdog.init(WatchdogConfiguration().timeout(5000));
   Watchdog.start();
@@ -29,6 +29,7 @@ void loop()
 
   if (System.resetReason() == RESET_REASON_WATCHDOG)
   {
+		display.clearDisplay();
     display.setTextSize(1);
     display.setTextColor(WHITE);
     display.setCursor(0, 0);
@@ -37,10 +38,11 @@ void loop()
   }
   else if (System.resetReason() != RESET_REASON_WATCHDOG)
   {
+		display.clearDisplay();
     display.setTextSize(1);
     display.setTextColor(WHITE);
     display.setCursor(0, 0);
-    display.println("reset NOT watchdog");
+    display.println("normal reset");
     display.display();
   }
 }
